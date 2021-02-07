@@ -1,0 +1,28 @@
+version: '3'
+services:
+    # web server
+    php:
+        # exposed ports of the container (HOST:CONTAINER)
+        ports:
+            - 80:80
+
+    # database
+    db:
+        environment:
+            # root password (mandatory)
+            MYSQL_ROOT_PASSWORD: root
+            # name of a database to be created on image startup
+            MYSQL_DATABASE: db_name
+            # create a new user on image startup
+            MYSQL_USER: my_user
+            # password of the created user
+            MYSQL_PASSWORD: my_user_password
+        # exposed ports of the container (HOST:CONTAINER)
+        ports:
+            - 3306:3306
+
+    # phpMyAdmin
+    phpmyadmin:
+        # exposed ports of the container (HOST:CONTAINER)
+        ports:
+            - 8080:80

@@ -1,0 +1,35 @@
+version: '3'
+services:
+    # web server
+    php:
+        build:
+            context: ./docker/php
+        volumes:
+            - .:/var/www/html:rw
+        depends_on:
+            - db
+        ports:
+            - 80:80
+
+    # database
+    db:
+        image: mariadb:10.3.13-bionic
+        restart: on-failure
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - db_data:/var/lib/mysql
+        ports:
+            - 3306:3306
+
+    # phpMyAdmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        restart: on-failure
+        ports:
+            - 8080:80
+        depends_on:
+            - db
+
+volumes:
+    db_data:
